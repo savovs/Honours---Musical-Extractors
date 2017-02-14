@@ -1,0 +1,42 @@
+from essentia import *
+from essentia.standard import *
+from numpy import *
+from matplotlib import pyplot as plt
+from spectrum_analysis import meanSpectrum
+
+# Declare our variables (filename etc.)
+_f = "test .wav"
+_r = "result_wav"
+# Load audio in to Essentia container
+loader = MonoLoader(filename = _f)
+writer = MonoWriter(filename = _r)
+audio = loader()
+
+# Declare Functions
+key_func = KeyExtractor()
+beat_func = RhythmExtractor2013()
+hfc = HFC()
+spectral_complexity = SpectralComplexity()
+
+# Perform analysis
+aggregated_spectrum = meanSpectrum(audio, 512, 256)
+k_key, k_scale, k_strength = key_func(audio)
+b_bpm, b_ticks, b_confidence, b_estimates, b_bpm_intervals = beat_func(audio)
+_hfc = hfc(aggregated_spectrum)
+s_complexity = spectral_complexity(aggregated_spectrum)
+
+## NOT WORKING
+writer(b_ticks)
+##
+
+
+print "key is: " + k_key, k_scale
+
+print b_bpm
+
+print b_confidence
+
+print _hfc
+
+print s_complexity
+
