@@ -54,8 +54,7 @@ def generateHeightmap(sizeX, sizeY, spectrumFrames, samplesPerFrame, real2smooth
                     currentIndex = j / SampleHopSize
                     val = _column[currentIndex]
                     val = interp(val, [0,1],[0,255])
-                    ##Image object has no atrtribute draw,
-                    _heightmap.point((currentPoint, currentPoint), fill = val)
+                    _heightmap.putpixel(currentPoint, val)
                     _previous_column = _column
 
 

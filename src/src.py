@@ -3,33 +3,33 @@ from essentia.standard import *
 from numpy import *
 from matplotlib import pyplot as plt
 from spectrum_analysis import *
-from inharmonicity import averageHarmonicity
 from heightmap_generator import generateHeightmap
-# Declare our variables (filename etc.)
+from inharmonicity import averageHarmonicity
+
+
+## Declare our variables (filename etc.)
 _f = "test_3.wav"
 _r = "result_wav"
-# Load audio in to Essentia container
+## Load audio in to Essentia container
 loader = MonoLoader(filename = _f)
 writer = MonoWriter(filename = _r)
 audio = loader()
 
-# Declare Functions
-# Utility
+## Declare Functions
+## Utility
 _dcremoval = DCRemoval()
-# Main Functions
+## Main Functions
 key_func = KeyExtractor()
 beat_func = RhythmExtractor2013()
 
 hfc = HFC()
 spectral_complexity = SpectralComplexity()
-
 dyn_intensity = Intensity()
 dyn_complexity = DynamicComplexity()
 
 
-
-# Perform analysis
-# Data manipulation methods
+## Perform analysis
+## Data manipulation methods
 ## aggregates spectra of frame size x, adds to an array
 spectrum_frames = spectrumFrames(audio, 512, 256)
 ## uses spectra to generate frames of spectral peaks
@@ -47,6 +47,7 @@ _hfc = hfc(aggregated_spectrum)
 s_complexity = spectral_complexity(aggregated_spectrum)
 d_intensity = dyn_intensity(audio)
 d_complexity, d_loudness = dyn_complexity(audio)
+s_inharmonicity = averageHarmonicity(sp_freq, sp_mag)
 
 
 
@@ -72,3 +73,6 @@ print "Dynamic Intensity is : %d" % d_intensity
 print "Dynamic Complexity is : %d" % d_complexity
 
 print "Loudness  : %d dB" % d_loudness
+
+print "Inharmonicity is %d" % s_inharmonicity
+
