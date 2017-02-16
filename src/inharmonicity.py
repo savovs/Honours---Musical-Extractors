@@ -11,25 +11,29 @@ def averageHarmonicity(sp_freq, sp_mag):
     i , j, result  = 0 , 0,  0
     limit_calc = len(sp_freq)
     raw_values = []
+    raw_harm = 0
 
     ## Get inharmonicity values from spectrum frames
     ##
     for i in range(limit_calc):
-        x_freq, x_mag = sp_freq[i], sp_mag[i]
-        y = _harm(x_freq, x_mag)
-        raw_values.append(y)
-        i += 1
-
+         x_freq, x_mag = sp_freq[i], sp_mag[i]
+         if(x_freq < 1):
+             x_freq += 1
+         y = _harm(x_freq, x_mag)
+         raw_values.append(y)
+         i += 1
     ## Loop should only run for number of vectors present
     ##
+
+    #
     limit_agr = len(raw_values)
     for j in range(limit_agr):
-        ## Sum all inharmonicity real values
-        result += raw_values[j]
-        j += 1
-
-    ## Divide by total number of samples present for
-    ## Average inharmonicity
+         ## Sum all inharmonicity real values
+         result += raw_values[j]
+         j += 1
+    #
+    # ## Divide by total number of samples present for
+    # ## Average inharmonicity
     result = result / limit_agr
 
     return result
