@@ -4,7 +4,7 @@ from numpy import *
 from matplotlib import pyplot as plt
 from spectrum_analysis import *
 from inharmonicity import averageHarmonicity
-
+from heightmap_generator import generateHeightmap
 # Declare our variables (filename etc.)
 _f = "test_3.wav"
 _r = "result_wav"
@@ -25,6 +25,8 @@ spectral_complexity = SpectralComplexity()
 
 dyn_intensity = Intensity()
 dyn_complexity = DynamicComplexity()
+
+
 
 # Perform analysis
 # Data manipulation methods
@@ -47,11 +49,13 @@ d_intensity = dyn_intensity(audio)
 d_complexity, d_loudness = dyn_complexity(audio)
 
 
+
 ## NOT WORKING
 ## s_inharmonicity = averageHarmonicity(sp_freq, sp_mag)
 ## writer(b_ticks)
-##
+## generateHeightmap(513, 513, spectrum_frames, 128, 4)
 
+print len(spectrum_frames)
 
 print "key is: " + k_key, k_scale
 

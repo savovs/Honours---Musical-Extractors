@@ -25,7 +25,7 @@ def spectrumFrames(signal, frameSize, hopSize):
             frames.append(f)
             i = i + hopSize
 
-            if i % 8 == 0:
+            if i % 128 == 0:
                 _raw_progress = i / limit
                 _normalised_progress = _raw_progress * 100
                 print "Calculating spectral frames: total progress = %d per cent" % _normalised_progress
